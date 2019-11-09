@@ -21,10 +21,10 @@ fetch(url, {
     return response.json()
   })
   .then(data => {
-    // Lets do somethings with our json data
+    // Work with JSON data here
     console.log(data);
    data.data.forEach(sp => {
-            // This section was borrowed from junicode fetch all estate admin js file but i fixed some bugs junicode did not fix
+    
             // Create Entries placeholders on table 
             let row = table.insertRow(),
                 spName = row.insertCell(),
@@ -49,11 +49,19 @@ fetch(url, {
                 
                 remove.setAttribute('data-id', `${sp.id}`);
                 suspend.setAttribute('data-id', `${sp.id}`);
-        
-       })  
+                suspend.addEventListener('click', (event) => {
+      
+                sessionStorage.setItem('sus-id', suspend.getAttribute('data-id'));
+                console.log(sessionStorage.getItem("sus-id"));
+                });
+                remove.addEventListener('click', (event) => {
+      
+                sessionStorage.setItem('remo-id', remove.getAttribute('data-id'));
+                console.log(sessionStorage.getItem("remo-id"));
+                });
+          })
     })
   })
   .catch(err => {
     console.log("An Error Occured: "+err);
   })
-  
