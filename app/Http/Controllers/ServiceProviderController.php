@@ -20,10 +20,6 @@ class ServiceProviderController extends Controller
         $res = array();
 
         if (Auth::check()) {
-           $user = Auth::user();
-           $role = $user->role;
-
-           //if ($role === "1" || $role === "2" ) {
                 // $service = Service_Provider::all();
                 $query = DB::table('service_providers')
                                 ->join('estates', 'service_providers.estate_id', '=', 'estates.id')
@@ -41,49 +37,14 @@ class ServiceProviderController extends Controller
                     $res["status"] = 200;
                     $res["message"] = "No service providers registered";
                 }
-        //   } else {
-           //    $res['status'] = 401;
-          //     $res['message'] = "You must login as a resident or admin.";
-         //  }
        } else {
         $res['status'] = 401;
         $res['message'] = "You are not logged in.";
        }
         return response()->json($res, $res['status']);
-    }*/
-    
-    // Method to get all service provider
-    public function showAll()
-    {
-     try {
-          $all = [];
-          $services = Service_Provider::all();
-          
-          foreach($services as $service)
-          {
-           $status = $service->status;
-           if($status == 1)
-           {
-            array_push($all, $services);
-           }
-          }
-         
-          $res["status_code"] = 200;
-          $res["message"] = "Success!";
-          $res["data"] = $all;
-         
-          return response()->json($res, $res["status_code"]);
-         }
-          catch (\Exception $e)
-         {
-          $res["status_code"] = 501;
-          $res["message"] = "Failed!";
-          $res["error"] = $e->getMessage();
-              
-          return response()->json($res, $res["status_code"]);
-         }
     }
-
+    
+    
     public function groupByEstate() {
         $res = array();
         $uniqueEstate = array();
