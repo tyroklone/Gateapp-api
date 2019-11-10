@@ -15,7 +15,7 @@ use App\Estate;
 
 class ServiceProviderController extends Controller
 {
-   /* public function showAll()
+   public function showAll()
     {
         $res = array();
 
