@@ -15,7 +15,7 @@ use App\Estate;
 
 class ServiceProviderController extends Controller
 {
-    public function showAll()
+   /* public function showAll()
     {
         $res = array();
 
@@ -50,6 +50,38 @@ class ServiceProviderController extends Controller
         $res['message'] = "You are not logged in.";
        }
         return response()->json($res, $res['status']);
+    }*/
+    
+    // Method to get all service provider
+    public function showAll()
+    {
+     try {
+          $all = [];
+          $services = Service_Provider::with('estate')->with('category')->get();
+          
+          foreach($services as $service)
+          {
+           $status = $service->status;
+           if($status == 1)
+           {
+            array_push($requests, $services);
+           }
+          }
+         
+          $res["status_code"] = 200;
+          $res["message"] = "Success!";
+          $res["data"] = $all;
+         
+          return response()->json($res, $res["status_code"]);
+         }
+          catch (\Exception $e)
+         {
+          $res["status_code"] = 501;
+          $res["message"] = "Failed!";
+          $res["error"] = $e->getMessage();
+              
+          return response()->json($res, $res["status_code"]);
+         }
     }
 
     public function groupByEstate() {
