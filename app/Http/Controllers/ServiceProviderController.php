@@ -59,14 +59,14 @@ class ServiceProviderController extends Controller
           $all = [];
           $services = Service_Provider::with('estate')->with('category')->get();
           
-          foreach($services as $service)
-          {
-           $status = $service->status;
+          //foreach($services as $service)
+         // {
+           $status = $services->status;
            if($status == 1)
            {
             array_push($all, $services);
            }
-          }
+          //}
          
           $res["status_code"] = 200;
           $res["message"] = "Success!";
